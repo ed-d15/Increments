@@ -1,19 +1,25 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #e9eef5;
+}
+
 html {
     height: 100%;
 }
 
 body {
-    margin: 0;
     height: 100%;
+    background-color: #171a21;
+    margin: 0;
 }
 
 #header {
     width: 100%;
     margin: 0;
-}
-
-h1 {
-    margin: 0;
+    text-align: center;
+    background-color: #1d232f;
+    border-radius: 10px;
+    padding: 2px;
 }
 
 #main {
@@ -25,7 +31,7 @@ h1 {
 }
 
 #scoreboardarea {
-
+    text-align: center;
 }
 
 #clickerarea {
