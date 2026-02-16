@@ -20,13 +20,22 @@ const automaticMultiplierUpgrades = [
     { cost: 2500, newPPC: 5 },
     { cost: 5000, newPPC: 8 },
     { cost: 10000, newPPC: 10 }
-]
+];
+let automaticTimerLevel = 0;
+const automaticTimerUpgrades = [
+    { cost: 100, newTimer: 950 },
+    { cost: 1000, newTimer: 900 },
+    { cost: 5000, newTimer: 850 },
+    { cost: 7500, newTimer: 800 },
+    { cost: 12500, newTimer: 750 }
+];
 
 window.addEventListener('load', function () {
     const clicker = document.getElementById('clicker');
     const scoreboard = document.getElementById('scoreboard');
     const manualMultiplier = document.getElementById('multiplier');
-    const automaticMultiplier = document.getElementById('automaticClickerMultiplier');
+    const automaticMultiplier = document.getElementById('automaticMultiplier');
+    const automaticTimer = document.getElementById('automaticTimer');
 
     function addPoint(points) {
         click_count += points;
@@ -42,8 +51,8 @@ window.addEventListener('load', function () {
         }
     }
 
-    function addAutomaticClicker(newPPC) {
-        autoClicker = setInterval(() => addPoint(newPPC), 1000);
+    function addAutomaticClicker(PPC, timer) {
+        autoClicker = setInterval(() => addPoint(PPC), timer);
         autoClickerOn = true;
     }
 
@@ -52,7 +61,7 @@ window.addEventListener('load', function () {
         autoClickerOn = false;
     }
 
-    function automaticMultiplierUpgrade(cost, newPPC) {
+    function automaticMultiplierUpgrade(cost, PPC, timer) {
         if (click_count >= cost) {
             click_count -= cost;
             scoreboard.innerHTML = click_count;
@@ -60,13 +69,26 @@ window.addEventListener('load', function () {
             if (autoClickerOn == true) {
                 stopAutomaticClicker();
             }
-            addAutomaticClicker(newPPC);
+            addAutomaticClicker(PPC, timer);
 
             automaticMultiplierLevel++;
         }
     }
 
+    function automaticTimerUpgrade(cost, PPC, timer) {
+        if (click_count >= cost) {
+            click_count -= cost;
+            scoreboard.innerHTML = click_count;
+
+            stopAutomaticClicker();
+            addAutomaticClicker(PPC, timer);
+            
+            automaticTimerLevel++;
+        }
+    }
+
     clicker.addEventListener('click', () => addPoint(pointsPerClick));
     manualMultiplier.addEventListener('click', () => manualMultiplierUpgrade(manualMultiplierUpgrades[manualMultiplierLevel].cost, manualMultiplierUpgrades[manualMultiplierLevel].newPPC));
-    automaticMultiplier.addEventListener('click', () => automaticMultiplierUpgrade(automaticMultiplierUpgrades[automaticMultiplierLevel].cost, automaticMultiplierUpgrades[automaticMultiplierLevel].newPPC))
+    automaticMultiplier.addEventListener('click', () => automaticMultiplierUpgrade(automaticMultiplierUpgrades[automaticMultiplierLevel].cost, automaticMultiplierUpgrades[automaticMultiplierLevel].newPPC, automaticTimerUpgrades[automaticTimerLevel].newTimer));
+    automaticTimer.addEventListener('click', () => automaticTimerUpgrade(automaticTimerUpgrades[automaticTimerLevel].cost, automaticMultiplierUpgrades[automaticMultiplierLevel].newPPC, automaticTimerUpgrades[automaticTimerLevel].newTimer));
 });
