@@ -68,6 +68,9 @@ window.addEventListener('load', function () {
 
             if (autoClickerOn == true) {
                 stopAutomaticClicker();
+            } else {
+                automaticMultiplier.innerHTML = 'Auto Clicker Multiplier Upgrade';
+                automaticTimer.style.visibility = 'visible';
             }
             addAutomaticClicker(PPC, timer);
 

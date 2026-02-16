@@ -40,6 +40,10 @@ h1 {
 
 }
 
+#automaticTimer {
+    visibility: hidden;
+}
+
 #rewards {
 
 }
