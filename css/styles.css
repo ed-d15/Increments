@@ -130,3 +130,39 @@ body {
   border-top: 1px solid #3a3f46;
   background: #2a2f36;
 }
+
+.hidden { display: none; }
+
+#helpPanel {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #2a2f36;
+    border: 1px solid #3a3f46;
+    border-radius: 8px;
+    padding: 20px;
+    z-index: 100;
+    color: #f0f0f0;
+}
+
+#congratsPopup {
+    position: fixed;
+    top: 20px; left: 50%;
+    transform: translateX(-50%);
+    background: #2a2f36;
+    border: 1px solid #3a3f46;
+    color: #f0f0f0;
+    padding: 10px 20px;
+    border-radius: 8px;
+    z-index: 200;
+}
+
+.achievement {
+    display: inline-block;
+    border: 1px solid #3a3f46;
+    background: #343a42;
+    color: #f0f0f0;
+    padding: 6px 10px;
+    margin: 4px;
+    border-radius: 8px;
+}
