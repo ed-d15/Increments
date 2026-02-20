@@ -1,49 +1,168 @@
-html {
-    height: 100%;
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
 }
 
 body {
-    margin: 0;
-    height: 100%;
+  margin: 0;
+  display: flex;             
+  flex-direction: column;
+  min-height: 100vh;         
+  font-family: system-ui, Arial, sans-serif;
+  color: #f0f0f0;
+  background: #1c1f24;
 }
 
 #header {
-    width: 100%;
-    margin: 0;
-}
-
-h1 {
-    margin: 0;
+  padding: 12px 16px;
+  text-align: center;
+  border-bottom: 1px solid #3a3f46;
+  background: #2a2f36;
 }
 
 #main {
-    display: flex;
+  flex: 1;
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  min-height: 0;
 }
 
-#leftarea {
-    flex: 1;
+#leftarea,
+#rightarea {
+  flex: 1;
+  background: #2a2f36;
+  border: 1px solid #3a3f46;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 #scoreboardarea {
+  text-align: center;
+  margin-bottom: 12px;
+}
 
+#scoreboard {
+  font-size: 64px;    
+  font-weight: 800;
+  line-height: 1;
+  color: #f0f0f0;
 }
 
 #clickerarea {
-
+  text-align: center;
+  margin: 12px 0;
 }
 
+#clicker {
+  border: 1px solid #3a3f46;
+  background: #343a42;
+  color: #f0f0f0;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#clicker:hover {
+  background: #3f4550;
+}
+
+#clicker:active {
+  background: #3a404b;
+} 
+
 #rightarea {
-    flex: 1;
+  gap: 12px;
 }
 
 #upgrades {
+  display: grid;
+  gap: 10px;
+  overflow-y: auto;
+  padding-right: 4px;
+  max-height: 50%;
+  border-bottom: 1px solid #3a3f46;
+  padding-bottom: 12px;
+}
 
+#upgrades button {
+  width: 100%;
+  text-align: left;
+  border: 1px solid #3a3f46;
+  background: #2a2f36;
+  color: #f0f0f0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+#upgrades button:hover {
+  background: #343a42;
+}
+
+#upgrades button:active {
+  background: #3a404b;
+}
+
+#achievements {
+  
 }
 
 #automaticTimer {
-    visibility: hidden;
+  visibility: hidden;
 }
 
-#rewards {
+#footer {
+  padding: 12px 16px;
+  text-align: center;
+  color: #959ba5;
+  border-top: 1px solid #3a3f46;
+  background: #2a2f36;
+}
 
+.hidden { display: none; }
+
+#helpPanel {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #2a2f36;
+    border: 1px solid #3a3f46;
+    border-radius: 8px;
+    padding: 20px;
+    z-index: 100;
+    color: #f0f0f0;
+}
+
+#congratsPopup {
+    position: fixed;
+    top: 20px; left: 50%;
+    transform: translateX(-50%);
+    background: #2a2f36;
+    border: 1px solid #3a3f46;
+    color: #f0f0f0;
+    padding: 10px 20px;
+    border-radius: 8px;
+    z-index: 200;
+}
+
+.achievement {
+    display: inline-block;
+    border: 1px solid #3a3f46;
+    background: #343a42;
+    color: #f0f0f0;
+    padding: 6px 10px;
+    margin: 4px;
+    border-radius: 8px;
 }

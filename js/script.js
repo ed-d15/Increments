@@ -1,5 +1,7 @@
 let click_count = 0;
 let pointsPerClick = 1;
+let totalUpgradesBought = 0;
+let manualClickCount = 0;
 
 let manualMultiplierLevel = 0;
 const manualMultiplierUpgrades = [
@@ -30,16 +32,52 @@ const automaticTimerUpgrades = [
     { cost: 12500, newTimer: 750 }
 ];
 
+const achievements = [
+    { id: 'first_click', label: 'First Click', earned: false, check: () => manualClickCount >= 1 },
+    { id: 'getting_rich', label: '100 Resources', earned: false, check: () => click_count >= 100 },
+    { id: 'high_roller', label: '1000 Resources', earned: false, check: () => click_count >= 1000 },
+    { id: 'upgrade_beginner', label: 'First Upgrade', earned: false, check: () => totalUpgradesBought >= 1 },
+    { id: 'auto_unlocked', label: 'Auto-Clicker Unlocked', earned: false, check: () => autoClickerOn === true },
+];
+
 window.addEventListener('load', function () {
     const clicker = document.getElementById('clicker');
     const scoreboard = document.getElementById('scoreboard');
     const manualMultiplier = document.getElementById('multiplier');
     const automaticMultiplier = document.getElementById('automaticMultiplier');
     const automaticTimer = document.getElementById('automaticTimer');
+    const achievementsList = document.getElementById('achievementsList');
+    const congratsPopup = document.getElementById('congratsPopup');
+    const helpBtn = document.getElementById('helpBtn');
+    const helpPanel = document.getElementById('helpPanel');
+    const closeHelp = document.getElementById('closeHelp');
 
     function addPoint(points) {
         click_count += points;
         scoreboard.innerHTML = click_count;
+        checkAchievements();
+    }
+
+
+    let congratsTimeout;
+    function showCongrats(msg) {
+        congratsPopup.innerHTML = msg;
+        congratsPopup.classList.remove('hidden');
+        clearTimeout(congratsTimeout);
+        congratsTimeout = setTimeout(() => congratsPopup.classList.add('hidden'), 3000);
+    }
+
+    function checkAchievements() {
+        achievements.forEach(a => {
+            if (!a.earned && a.check()) {
+                a.earned = true;
+                const badge = document.createElement('div');
+                badge.classList.add('achievement');
+                badge.innerHTML = a.label;
+                achievementsList.appendChild(badge);
+                showCongrats('Achievement Unlocked: ' + a.label);
+            }
+        });
     }
 
     function manualMultiplierUpgrade(cost, newPPC) {
@@ -48,6 +86,7 @@ window.addEventListener('load', function () {
             click_count -= cost;
             manualMultiplierLevel++;
             scoreboard.innerHTML = click_count;
+            totalUpgradesBought++
         }
     }
 
@@ -64,6 +103,7 @@ window.addEventListener('load', function () {
     function automaticMultiplierUpgrade(cost, PPC, timer) {
         if (click_count >= cost) {
             click_count -= cost;
+            totalUpgradesBought++;
             scoreboard.innerHTML = click_count;
 
             if (autoClickerOn == true) {
@@ -81,17 +121,23 @@ window.addEventListener('load', function () {
     function automaticTimerUpgrade(cost, PPC, timer) {
         if (click_count >= cost) {
             click_count -= cost;
+            totalUpgradesBought++;
             scoreboard.innerHTML = click_count;
 
             stopAutomaticClicker();
             addAutomaticClicker(PPC, timer);
-            
+
             automaticTimerLevel++;
         }
     }
 
-    clicker.addEventListener('click', () => addPoint(pointsPerClick));
+    clicker.addEventListener('click', () => {
+        manualClickCount++;
+        addPoint(pointsPerClick);
+    });
     manualMultiplier.addEventListener('click', () => manualMultiplierUpgrade(manualMultiplierUpgrades[manualMultiplierLevel].cost, manualMultiplierUpgrades[manualMultiplierLevel].newPPC));
     automaticMultiplier.addEventListener('click', () => automaticMultiplierUpgrade(automaticMultiplierUpgrades[automaticMultiplierLevel].cost, automaticMultiplierUpgrades[automaticMultiplierLevel].newPPC, automaticTimerUpgrades[automaticTimerLevel].newTimer));
-    automaticTimer.addEventListener('click', () => automaticTimerUpgrade(automaticTimerUpgrades[automaticTimerLevel].cost, automaticMultiplierUpgrades[automaticMultiplierLevel-1].newPPC, automaticTimerUpgrades[automaticTimerLevel].newTimer));
+    automaticTimer.addEventListener('click', () => automaticTimerUpgrade(automaticTimerUpgrades[automaticTimerLevel].cost, automaticMultiplierUpgrades[automaticMultiplierLevel - 1].newPPC, automaticTimerUpgrades[automaticTimerLevel].newTimer));
+    helpBtn.addEventListener('click', () => helpPanel.classList.remove('hidden'));
+    closeHelp.addEventListener('click', () => helpPanel.classList.add('hidden'));
 });
