@@ -23,6 +23,7 @@ const automaticMultiplierUpgrades = [
     { cost: 5000, newPPC: 8 },
     { cost: 10000, newPPC: 10 }
 ];
+
 let automaticTimerLevel = 0;
 const automaticTimerUpgrades = [
     { cost: 100, newTimer: 950 },
