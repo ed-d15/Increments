@@ -63,10 +63,14 @@ body {
 }
 
 #clicker {
+  position: relative;
+  width: min(560px, 100%);
+  min-height: 240px;
+  overflow: hidden;
   border: 1px solid #3a3f46;
   background: #343a42;
   color: #f0f0f0;
-  padding: 12px 20px;
+  padding: 50px 20px 12px 20px;
   border-radius: 8px;
   font-weight: 700;
   cursor: pointer;
@@ -210,3 +214,4 @@ body {
   border-radius: 8px;
   z-index: 200;
 }
+
