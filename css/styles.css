@@ -2,15 +2,16 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
 body {
   margin: 0;
-  display: flex;             
+  display: flex;
   flex-direction: column;
-  min-height: 100vh;         
+  min-height: 100vh;
   font-family: system-ui, Arial, sans-serif;
   color: #f0f0f0;
   background: #1c1f24;
@@ -50,7 +51,7 @@ body {
 }
 
 #scoreboard {
-  font-size: 64px;    
+  font-size: 64px;
   font-weight: 800;
   line-height: 1;
   color: #f0f0f0;
@@ -78,7 +79,7 @@ body {
 
 #clicker:active {
   background: #3a404b;
-} 
+}
 
 #rightarea {
   gap: 12px;
@@ -116,7 +117,56 @@ body {
 }
 
 #achievements {
-  
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+#achievementsList {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 48px;
+  gap: 16px;
+  overflow-y: auto;
+  max-height: 400px;
+  padding-right: 4px;
+  border-top: 1px solid #3a3f46;
+  padding-top: 8px;
+}
+
+.achievement {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  border: 1px solid #3a3f46;
+  background: #343a42;
+  color: #f0f0f0;
+  border-radius: 8px;
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+
+.achievement-enter {
+  animation: achieve-enter 360ms cubic-bezier(.2,.9,.2,1) both;
+}
+
+@keyframes achieve-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(0.96);
+  }
 }
 
 #automaticTimer {
@@ -131,38 +181,32 @@ body {
   background: #2a2f36;
 }
 
-.hidden { display: none; }
+.hidden {
+  display: none;
+}
 
 #helpPanel {
-    position: fixed;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    background: #2a2f36;
-    border: 1px solid #3a3f46;
-    border-radius: 8px;
-    padding: 20px;
-    z-index: 100;
-    color: #f0f0f0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #2a2f36;
+  border: 1px solid #3a3f46;
+  border-radius: 8px;
+  padding: 20px;
+  z-index: 100;
+  color: #f0f0f0;
 }
 
 #congratsPopup {
-    position: fixed;
-    top: 20px; left: 50%;
-    transform: translateX(-50%);
-    background: #2a2f36;
-    border: 1px solid #3a3f46;
-    color: #f0f0f0;
-    padding: 10px 20px;
-    border-radius: 8px;
-    z-index: 200;
-}
-
-.achievement {
-    display: inline-block;
-    border: 1px solid #3a3f46;
-    background: #343a42;
-    color: #f0f0f0;
-    padding: 6px 10px;
-    margin: 4px;
-    border-radius: 8px;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2a2f36;
+  border: 1px solid #3a3f46;
+  color: #f0f0f0;
+  padding: 10px 20px;
+  border-radius: 8px;
+  z-index: 200;
 }

@@ -73,7 +73,7 @@ window.addEventListener('load', function () {
             if (!a.earned && a.check()) {
                 a.earned = true;
                 const badge = document.createElement('div');
-                badge.classList.add('achievement');
+                badge.classList.add('achievement', 'achievement-enter');
                 badge.innerHTML = a.label;
                 achievementsList.appendChild(badge);
                 showCongrats('Achievement Unlocked: ' + a.label);
