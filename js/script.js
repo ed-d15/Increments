@@ -6,10 +6,17 @@ let manualClickCount = 0;
 let manualMultiplierLevel = 0;
 const manualMultiplierUpgrades = [
     { cost: 20, newPPC: 2 },
-    { cost: 100, newPPC: 5 },
-    { cost: 500, newPPC: 10 },
-    { cost: 2000, newPPC: 15 },
-    { cost: 10000, newPPC: 20 }
+    { cost: 60, newPPC: 3 },
+    { cost: 180, newPPC: 5 },
+    { cost: 540, newPPC: 8 },
+    { cost: 1600, newPPC: 12 },
+    { cost: 4800, newPPC: 18 },
+    { cost: 14500, newPPC: 27 },
+    { cost: 44000, newPPC: 40 },
+    { cost: 133000, newPPC: 60 },
+    { cost: 400000, newPPC: 90 },
+    { cost: 1200000, newPPC: 135 },
+    { cost: 3600000, newPPC: 200 }
 ];
 
 let autoClicker;
@@ -17,20 +24,31 @@ let autoClickerOn = false;
 let automaticMultiplierLevel = 0;
 const automaticMultiplierUpgrades = [
     { cost: 100, newPPC: 1 },
-    { cost: 500, newPPC: 2 },
-    { cost: 1500, newPPC: 3 },
-    { cost: 2500, newPPC: 5 },
-    { cost: 5000, newPPC: 8 },
-    { cost: 10000, newPPC: 10 }
+    { cost: 250, newPPC: 2 },
+    { cost: 750, newPPC: 3 },
+    { cost: 2000, newPPC: 5 },
+    { cost: 6000, newPPC: 8 },
+    { cost: 18000, newPPC: 12 },
+    { cost: 54000, newPPC: 18 },
+    { cost: 160000, newPPC: 27 },
+    { cost: 480000, newPPC: 40 },
+    { cost: 1450000, newPPC: 60 },
+    { cost: 4350000, newPPC: 90 },
+    { cost: 13000000, newPPC: 120 }
 ];
 
 let automaticTimerLevel = 0;
 const automaticTimerUpgrades = [
-    { cost: 100, newTimer: 950 },
-    { cost: 1000, newTimer: 900 },
-    { cost: 5000, newTimer: 850 },
-    { cost: 7500, newTimer: 800 },
-    { cost: 12500, newTimer: 750 }
+    { cost: 500, newTimer: 1000 },
+    { cost: 2000, newTimer: 900 },
+    { cost: 8000, newTimer: 800 },
+    { cost: 25000, newTimer: 700 },
+    { cost: 80000, newTimer: 600 },
+    { cost: 250000, newTimer: 500 },
+    { cost: 800000, newTimer: 400 },
+    { cost: 2500000, newTimer: 320 },
+    { cost: 8000000, newTimer: 260 },
+    { cost: 25000000, newTimer: 200 }
 ];
 
 const achievements = [
@@ -81,13 +99,19 @@ window.addEventListener('load', function () {
         });
     }
 
+    function canBuy(next, currency) {
+        return next && currency >= next.cost
+    }
+
     function manualMultiplierUpgrade(cost, newPPC) {
-        if (click_count >= cost) {
+        if (!manualMultiplierUpgrades[manualMultiplierLevel]) return;
+        if (canBuy(manualMultiplierUpgrades[manualMultiplierLevel], click_count)) {
             pointsPerClick = newPPC;
             click_count -= cost;
             manualMultiplierLevel++;
             scoreboard.innerHTML = click_count;
             totalUpgradesBought++
+            updateButtons();
         }
     }
 
@@ -102,7 +126,8 @@ window.addEventListener('load', function () {
     }
 
     function automaticMultiplierUpgrade(cost, PPC, timer) {
-        if (click_count >= cost) {
+        if (!automaticMultiplierUpgrades[automaticMultiplierLevel]) return;
+        if (canBuy(automaticMultiplierUpgrades[automaticMultiplierLevel], click_count)) {
             click_count -= cost;
             totalUpgradesBought++;
             scoreboard.innerHTML = click_count;
@@ -116,11 +141,13 @@ window.addEventListener('load', function () {
             addAutomaticClicker(PPC, timer);
 
             automaticMultiplierLevel++;
+            updateButtons();
         }
     }
 
     function automaticTimerUpgrade(cost, PPC, timer) {
-        if (click_count >= cost) {
+        if (!automaticTimerUpgrades[automaticTimerLevel]) return;
+        if (canBuy(automaticTimerUpgrades[automaticTimerLevel], click_count)) {
             click_count -= cost;
             totalUpgradesBought++;
             scoreboard.innerHTML = click_count;
@@ -129,6 +156,27 @@ window.addEventListener('load', function () {
             addAutomaticClicker(PPC, timer);
 
             automaticTimerLevel++;
+            updateButtons();
+        }
+    }
+
+    function updateButtons() {
+        const m = manualMultiplierUpgrades[manualMultiplierLevel];
+        const a = automaticMultiplierUpgrades[automaticMultiplierLevel];
+        const t = automaticTimerUpgrades[automaticTimerLevel];
+
+        if (m) {
+            manualMultiplier.textContent = `Multiplier - Cost: ${m.cost}`;
+        } else {
+            manualMultiplier.textContent = 'Multiplier - MAX';
+        } if (automaticTimerLevel == 0) {} else if (a) {
+            automaticMultiplier.textContent = `Auto Clicker Multiplier - Cost: ${a.cost}`;
+        } else {
+            automaticMultiplier.textContent = 'Auto Clicker Multiplier - MAX';
+        } if (t) {
+            automaticTimer.textContent = `Auto Clicker Timer - Cost: ${t.cost}`;
+        } else {
+            automaticTimer.textContent = 'Auto Clicker Timer - MAX';
         }
     }
 
