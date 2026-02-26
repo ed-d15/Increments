@@ -135,7 +135,7 @@ window.addEventListener('load', function () {
             if (autoClickerOn == true) {
                 stopAutomaticClicker();
             } else {
-                automaticMultiplier.innerHTML = 'Auto Clicker Multiplier Upgrade';
+                automaticMultiplier.innerHTML = `Auto Clicker Multiplier - Cost: ${automaticMultiplierUpgrades[automaticMultiplierLevel].cost}`;
                 automaticTimer.style.visibility = 'visible';
             }
             addAutomaticClicker(PPC, timer);
