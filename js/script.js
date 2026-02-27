@@ -237,6 +237,16 @@ window.addEventListener('load', function () {
         checkAchievements();
     }
 
+    function resizeMineCanvas() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const rect = c.getBoundingClientRect();
+        c.width = Math.max(1, Math.round(rect.width * dpr));
+        c.height = Math.max(1, Math.round(rect.height * dpr));
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resizeMineCanvas(0);
+    window.addEventListener('resize', resizeMineCanvas);
+ 
     function spawnOre() {
         const rect = c.getBoundingClientRect();
         const size = 12 + Math.random() * 8;

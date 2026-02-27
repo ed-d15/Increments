@@ -46,6 +46,7 @@ body {
 }
 
 #scoreboardarea {
+  margin-top: 30px;
   text-align: center;
   margin-bottom: 12px;
   flex: 1;
@@ -90,12 +91,13 @@ body {
 }
 
 #minescape {
-  width: min(560px, 100%);
+  width: calc(100% + 32px);
+  margin-left: -16px;
+  margin-right: -16px;
+  margin-bottom: -16px;
   height: 120px;
-  margin: 0 auto;
   background-color: #22262c;
-  border: 1px solid #3a3f46;
-  border-radius: 10px;
+  border: none;
   overflow: hidden;
   position: relative;
 }
