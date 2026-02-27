@@ -180,6 +180,8 @@ window.addEventListener('load', function () {
         } else {
             automaticTimer.textContent = 'Auto Clicker Timer - MAX';
         }
+
+        checkAchievements();
     }
 
     clicker.addEventListener('click', () => {
