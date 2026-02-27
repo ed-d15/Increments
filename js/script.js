@@ -169,7 +169,9 @@ window.addEventListener('load', function () {
             manualMultiplier.textContent = `Multiplier - Cost: ${m.cost}`;
         } else {
             manualMultiplier.textContent = 'Multiplier - MAX';
-        } if (automaticTimerLevel == 0) {} else if (a) {
+        } if (automaticMultiplierLevel === 0) {
+            automaticMultiplier.textContent = 'Automatic Clicker - Cost 100';
+        } else if (a) {
             automaticMultiplier.textContent = `Auto Clicker Multiplier - Cost: ${a.cost}`;
         } else {
             automaticMultiplier.textContent = 'Auto Clicker Multiplier - MAX';
