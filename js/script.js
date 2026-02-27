@@ -62,6 +62,7 @@ function getCurrentAutoTimer() {
     if (automaticTimerLevel > 0) {
         return automaticTimerUpgrades[automaticTimerLevel - 1].newTimer;
     }
+    return 1000;
 }
 
 const achievements = [
@@ -108,6 +109,7 @@ const achievements = [
 window.addEventListener('load', function () {
     const clicker = document.getElementById('clicker');
     const scoreboard = document.getElementById('scoreboard');
+    const manualPPC = document.getElementById('manualPPC');
     const manualMultiplier = document.getElementById('multiplier');
     const automaticMultiplier = document.getElementById('automaticMultiplier');
     const automaticTimer = document.getElementById('automaticTimer');
@@ -130,6 +132,9 @@ window.addEventListener('load', function () {
         checkAchievements();
     }
 
+    function changeManualPPC () {
+        manualPPC.innerHTML = `Manual PPC: ${pointsPerClick}`;
+    }
 
     let congratsTimeout;
     function showCongrats(msg) {
@@ -153,7 +158,7 @@ window.addEventListener('load', function () {
     }
 
     function canBuy(next, currency) {
-        return next && currency >= next.cost
+        return next && currency >= next.cost;
     }
 
     function manualMultiplierUpgrade(cost, newPPC) {
@@ -165,6 +170,7 @@ window.addEventListener('load', function () {
             scoreboard.innerHTML = click_count;
             totalUpgradesBought++
             updateButtons();
+            changeManualPPC();
         }
     }
 
@@ -244,7 +250,7 @@ window.addEventListener('load', function () {
         c.height = Math.max(1, Math.round(rect.height * dpr));
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
-    resizeMineCanvas(0);
+    resizeMineCanvas();
     window.addEventListener('resize', resizeMineCanvas);
  
     function spawnOre() {
@@ -277,6 +283,16 @@ window.addEventListener('load', function () {
         ctx.closePath();
         ctx.fill();
         ctx.stroke();
+    }
+
+    function syncOresToUpgrades() {
+        while (ores.length < totalUpgradesBought) {
+            spawnOre();
+        }
+
+        while (ores.length > totalUpgradesBought) {
+            ores.shift();
+        }
     }
 
     let mt = 0;
@@ -318,11 +334,7 @@ window.addEventListener('load', function () {
         ctx.stroke();
         ctx.restore();
 
-        spawn++;
-        if (spawn > 90) {
-            spawn = 0;
-            spawnOre();
-        }
+        syncOresToUpgrades();
 
         for (let i = ores.length - 1; i >= 0; i--) {
             const o = ores[i];
