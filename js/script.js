@@ -51,12 +51,58 @@ const automaticTimerUpgrades = [
     { cost: 25000000, newTimer: 200 }
 ];
 
+function getCurrentAutoPPC() {
+    if (automaticMultiplierLevel > 0) {
+        return automaticMultiplierUpgrades[automaticMultiplierLevel - 1].newPPC;
+    }
+    return 0;
+}
+
+function getCurrentAutoTimer() {
+    if (automaticTimerLevel > 0) {
+        return automaticTimerUpgrades[automaticTimerLevel - 1].newTimer;
+    }
+}
+
 const achievements = [
+    // Click number based
     { id: 'first_click', label: 'First Click', earned: false, check: () => manualClickCount >= 1 },
+    { id: 'click_apprentice', label: '50 Manual Clicks', earned: false, check: () => manualClickCount >= 50 },
+    { id: 'click_enthusiast', label: '250 Manual Clicks', earned: false, check: () => manualClickCount >= 250 },
+    { id: 'click_machine', label: '1000 Manual Clicks', earned: false, check: () => manualClickCount >= 1000 },
+
+    // Point number based
     { id: 'getting_rich', label: '100 Resources', earned: false, check: () => click_count >= 100 },
     { id: 'high_roller', label: '1000 Resources', earned: false, check: () => click_count >= 1000 },
+    { id: 'resource_tycoon', label: '10000 Resources', earned: false, check: () => click_count >= 10000 },
+    { id: 'resource_magnet', label: '100000 Resources', earned: false, check: () => click_count >= 100000 },
+
+    // Upgrade amount based
     { id: 'upgrade_beginner', label: 'First Upgrade', earned: false, check: () => totalUpgradesBought >= 1 },
+    { id: 'upgrade_shopper', label: 'Buy 5 Upgrades', earned: false, check: () => totalUpgradesBought >= 5 },
+    { id: 'upgrade_collector', label: 'Buy 10 Upgrades', earned: false, check: () => totalUpgradesBought >= 10 },
+
+    // Manual upgrades based
+    { id: 'finger_training', label: 'Manual PPC ≥ 3', earned: false, check: () => pointsPerClick >= 3 },
+    { id: 'iron_fingers', label: 'Manual PPC ≥ 12', earned: false, check: () => pointsPerClick >= 12 },
+    { id: 'thunder_clicks', label: 'Manual PPC ≥ 40', earned: false, check: () => pointsPerClick >= 40 },
+    { id: 'typhoon_clicks', label: 'Manual PPC ≥ 135', earned: false, check: () => pointsPerClick >= 135 },
+
+    // Automatic multiplier upgrades based
     { id: 'auto_unlocked', label: 'Auto-Clicker Unlocked', earned: false, check: () => autoClickerOn === true },
+    { id: 'auto_power_1', label: 'Auto PPC ≥ 3', earned: false, check: () => getCurrentAutoPPC() >= 3 },
+    { id: 'auto_power_2', label: 'Auto PPC ≥ 12', earned: false, check: () => getCurrentAutoPPC() >= 12 },
+    { id: 'auto_power_3', label: 'Auto PPC ≥ 27', earned: false, check: () => getCurrentAutoPPC() >= 27 },
+
+    // Automatic timer upgrades based
+    { id: 'auto_speed_1', label: 'Auto Timer ≤ 800ms', earned: false, check: () => getCurrentAutoTimer() !== null && getCurrentAutoTimer() <= 800 },
+    { id: 'auto_speed_2', label: 'Auto Timer ≤ 500ms', earned: false, check: () => getCurrentAutoTimer() !== null && getCurrentAutoTimer() <= 500 },
+    { id: 'auto_speed_3', label: 'Auto Timer ≤ 320ms', earned: false, check: () => getCurrentAutoTimer() !== null && getCurrentAutoTimer() <= 320 },
+
+    // Completing Upgrades based
+    { id: 'manual_maxed', label: 'Manual Multiplier Maxed', earned: false, check: () => manualMultiplierLevel >= manualMultiplierUpgrades.length },
+    { id: 'auto_multiplier_maxed', label: 'Auto Multiplier Maxed', earned: false, check: () => automaticMultiplierLevel >= automaticMultiplierUpgrades.length },
+    { id: 'auto_timer_maxed', label: 'Auto Timer Maxed', earned: false, check: () => automaticTimerLevel >= automaticTimerUpgrades.length }
 ];
 
 window.addEventListener('load', function () {
@@ -93,7 +139,7 @@ window.addEventListener('load', function () {
                 const badge = document.createElement('div');
                 badge.classList.add('achievement', 'achievement-enter');
                 badge.innerHTML = a.label;
-                achievementsList.appendChild(badge);
+                achievementsList.prepend(badge);
                 showCongrats('Achievement Unlocked: ' + a.label);
             }
         });
