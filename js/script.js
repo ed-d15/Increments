@@ -117,6 +117,13 @@ window.addEventListener('load', function () {
     const helpPanel = document.getElementById('helpPanel');
     const closeHelp = document.getElementById('closeHelp');
 
+    const c = document.getElementById('mineCanvas');
+    const ctx = c.getContext('2d', { alpha: false });
+    const beltY = 80;
+    const beltHeight = 26;
+    const ores = [];
+    let spawn = 0;
+
     function addPoint(points) {
         click_count += points;
         scoreboard.innerHTML = click_count;
@@ -230,10 +237,102 @@ window.addEventListener('load', function () {
         checkAchievements();
     }
 
+    function spawnOre() {
+        const rect = c.getBoundingClientRect();
+        const size = 12 + Math.random() * 8;
+        const colors = ['#d2a84a', '#a0b9d9', '#76c68f', '#c27bd1'];
+
+        ores.push({
+            x: -30,
+            y: beltY - beltHeight * 0.35 + Math.random() * (beltHeight * 0.3),
+            s: size,
+            c: colors[Math.floor(Math.random() * colors.length)],
+            wobble: Math.random() * Math.PI * 2,
+            v: 1 + Math.random() * 0.4
+        });
+    }
+
+    function drawOre(o) {
+        const s = o.s, r = 4, x = o.x, y = o.y;
+        ctx.fillStyle = o.c;
+        ctx.strokeStyle = '#1a1d22';
+        ctx.lineWidth = 2;
+
+        ctx.beginPath();
+        ctx.moveTo(x - s / 2 + r, y - s / 2);
+        ctx.arcTo(x + s / 2, y - s / 2, x + s / 2, y + s / 2, r);
+        ctx.arcTo(x + s / 2, y + s / 2, x - s / 2, y + s / 2, r);
+        ctx.arcTo(x - s / 2, y + s / 2, x - s / 2, y - s / 2, r);
+        ctx.arcTo(x - s / 2, y - s / 2, x + s / 2, y - s / 2, r);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+    }
+
+    let mt = 0;
+    function canvasFrame() {
+        const rect = c.getBoundingClientRect();
+        const W = rect.width;
+        const H = rect.height;
+
+        ctx.fillStyle = '#22262c';
+        ctx.fillRect(0, 0, W, H);
+
+        ctx.fillStyle = '#2a2f36';
+        ctx.fillRect(0, 18, W, 18);
+        ctx.fillStyle = '#2b3139';
+        ctx.fillRect(0, 42, W, 18);
+
+        ctx.fillStyle = '#2f353e';
+        ctx.fillRect(0, beltY - beltHeight / 2, W, beltHeight);
+
+        ctx.fillStyle = '#1d2127';
+        ctx.fillRect(0, beltY - beltHeight / 2, W, 3);
+        ctx.fillRect(0, beltY - beltHeight / 2 - 3, W, 3);
+
+        ctx.save();
+        ctx.strokeStyle = '#5c6678';
+        ctx.lineWidth = 2.5;
+        ctx.setLineDash([14, 10]);
+        ctx.lineDashOffset = -mt * (0.5 * 2.0);
+
+        const ty1 = beltY - beltHeight * 0.2;
+        const ty2 = beltY + beltHeight * 0.2;
+        ctx.beginPath();
+        ctx.moveTo(0, ty1);
+        ctx.lineTo(W, ty1);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(0, ty2);
+        ctx.lineTo(W, ty2);
+        ctx.stroke();
+        ctx.restore();
+
+        spawn++;
+        if (spawn > 90) {
+            spawn = 0;
+            spawnOre();
+        }
+
+        for (let i = ores.length - 1; i >= 0; i--) {
+            const o = ores[i];
+            o.wobble += 0.08;
+            o.x += 0.5 * o.v * 1.5;
+            o.y += Math.sin(o.wobble) * 0.18;
+            drawOre(o);
+            if (o.x - o.s > W + 24) ores.splice(i, 1);
+        }
+
+        mt++;
+        requestAnimationFrame(canvasFrame);
+    }
+    canvasFrame();
+
     clicker.addEventListener('click', () => {
         manualClickCount++;
         addPoint(pointsPerClick);
     });
+
     manualMultiplier.addEventListener('click', () => manualMultiplierUpgrade(manualMultiplierUpgrades[manualMultiplierLevel].cost, manualMultiplierUpgrades[manualMultiplierLevel].newPPC));
     automaticMultiplier.addEventListener('click', () => automaticMultiplierUpgrade(automaticMultiplierUpgrades[automaticMultiplierLevel].cost, automaticMultiplierUpgrades[automaticMultiplierLevel].newPPC, automaticTimerUpgrades[automaticTimerLevel].newTimer));
     automaticTimer.addEventListener('click', () => automaticTimerUpgrade(automaticTimerUpgrades[automaticTimerLevel].cost, automaticMultiplierUpgrades[automaticMultiplierLevel - 1].newPPC, automaticTimerUpgrades[automaticTimerLevel].newTimer));
