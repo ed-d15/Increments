@@ -1,3 +1,11 @@
+/*
+
+Authors: Edgar Dizon and Jamie Hammill
+Date Created: Feb 13, 2026
+Purpose: Game logic and JS functions to run the game
+
+*/
+
 let click_count = 0;
 let pointsPerClick = 1;
 let totalUpgradesBought = 0;
@@ -68,26 +76,26 @@ function getCurrentAutoTimer() {
 const achievements = [
     // Click number based
     { id: 'first_click', label: 'First Click', earned: false, check: () => manualClickCount >= 1 },
-    { id: 'click_apprentice', label: '50 Manual Clicks', earned: false, check: () => manualClickCount >= 50 },
-    { id: 'click_enthusiast', label: '250 Manual Clicks', earned: false, check: () => manualClickCount >= 250 },
-    { id: 'click_machine', label: '1000 Manual Clicks', earned: false, check: () => manualClickCount >= 1000 },
+    { id: 'click_apprentice', label: 'Click Apprentice: 50 Manual Clicks', earned: false, check: () => manualClickCount >= 50 },
+    { id: 'click_enthusiast', label: 'Click Enthusiast: 250 Manual Clicks', earned: false, check: () => manualClickCount >= 250 },
+    { id: 'click_machine', label: 'Click Machine: 1000 Manual Clicks', earned: false, check: () => manualClickCount >= 1000 },
 
     // Point number based
-    { id: 'getting_rich', label: '100 Resources', earned: false, check: () => click_count >= 100 },
-    { id: 'high_roller', label: '1000 Resources', earned: false, check: () => click_count >= 1000 },
-    { id: 'resource_tycoon', label: '10000 Resources', earned: false, check: () => click_count >= 10000 },
-    { id: 'resource_magnet', label: '100000 Resources', earned: false, check: () => click_count >= 100000 },
+    { id: 'getting_rich', label: 'Getting Rich: 100 Resources', earned: false, check: () => click_count >= 100 },
+    { id: 'high_roller', label: 'High Roller: 1000 Resources', earned: false, check: () => click_count >= 1000 },
+    { id: 'resource_tycoon', label: 'Resource Tycoon: 10000 Resources', earned: false, check: () => click_count >= 10000 },
+    { id: 'resource_magnet', label: 'Resource Magnet: 100000 Resources', earned: false, check: () => click_count >= 100000 },
 
     // Upgrade amount based
-    { id: 'upgrade_beginner', label: 'First Upgrade', earned: false, check: () => totalUpgradesBought >= 1 },
-    { id: 'upgrade_shopper', label: 'Buy 5 Upgrades', earned: false, check: () => totalUpgradesBought >= 5 },
-    { id: 'upgrade_collector', label: 'Buy 10 Upgrades', earned: false, check: () => totalUpgradesBought >= 10 },
+    { id: 'upgrade_beginner', label: 'Upgrade Beginner: First Upgrade', earned: false, check: () => totalUpgradesBought >= 1 },
+    { id: 'upgrade_shopper', label: 'Upgrade Shopper: Buy 5 Upgrades', earned: false, check: () => totalUpgradesBought >= 5 },
+    { id: 'upgrade_collector', label: 'Upgrade Collector: Buy 10 Upgrades', earned: false, check: () => totalUpgradesBought >= 10 },
 
     // Manual upgrades based
-    { id: 'finger_training', label: 'Manual PPC ≥ 3', earned: false, check: () => pointsPerClick >= 3 },
-    { id: 'iron_fingers', label: 'Manual PPC ≥ 12', earned: false, check: () => pointsPerClick >= 12 },
-    { id: 'thunder_clicks', label: 'Manual PPC ≥ 40', earned: false, check: () => pointsPerClick >= 40 },
-    { id: 'typhoon_clicks', label: 'Manual PPC ≥ 135', earned: false, check: () => pointsPerClick >= 135 },
+    { id: 'finger_training', label: 'Finger Training: Manual PPC ≥ 3', earned: false, check: () => pointsPerClick >= 3 },
+    { id: 'iron_fingers', label: 'Iron Fingers: Manual PPC ≥ 12', earned: false, check: () => pointsPerClick >= 12 },
+    { id: 'thunder_clicks', label: 'Thudner Clicks: Manual PPC ≥ 40', earned: false, check: () => pointsPerClick >= 40 },
+    { id: 'typhoon_clicks', label: 'Typhoon Cilcks: Manual PPC ≥ 135', earned: false, check: () => pointsPerClick >= 135 },
 
     // Automatic multiplier upgrades based
     { id: 'auto_unlocked', label: 'Auto-Clicker Unlocked', earned: false, check: () => autoClickerOn === true },
@@ -124,7 +132,6 @@ window.addEventListener('load', function () {
     const beltY = 80;
     const beltHeight = 26;
     const ores = [];
-    let spawn = 0;
 
     function addPoint(points) {
         click_count += points;
