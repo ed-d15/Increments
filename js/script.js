@@ -99,14 +99,14 @@ const achievements = [
 
     // Automatic multiplier upgrades based
     { id: 'auto_unlocked', label: 'Auto-Clicker Unlocked', earned: false, check: () => autoClickerOn === true },
-    { id: 'auto_power_1', label: 'Auto PPC ≥ 3', earned: false, check: () => getCurrentAutoPPC() >= 3 },
-    { id: 'auto_power_2', label: 'Auto PPC ≥ 12', earned: false, check: () => getCurrentAutoPPC() >= 12 },
-    { id: 'auto_power_3', label: 'Auto PPC ≥ 27', earned: false, check: () => getCurrentAutoPPC() >= 27 },
+    { id: 'auto_power_1', label: 'Auto Power 1: Auto PPC ≥ 3', earned: false, check: () => getCurrentAutoPPC() >= 3 },
+    { id: 'auto_power_2', label: 'Auto Power 2: Auto PPC ≥ 12', earned: false, check: () => getCurrentAutoPPC() >= 12 },
+    { id: 'auto_power_3', label: 'Auto Power 3: Auto PPC ≥ 27', earned: false, check: () => getCurrentAutoPPC() >= 27 },
 
     // Automatic timer upgrades based
-    { id: 'auto_speed_1', label: 'Auto Timer ≤ 800ms', earned: false, check: () => getCurrentAutoTimer() !== null && getCurrentAutoTimer() <= 800 },
-    { id: 'auto_speed_2', label: 'Auto Timer ≤ 500ms', earned: false, check: () => getCurrentAutoTimer() !== null && getCurrentAutoTimer() <= 500 },
-    { id: 'auto_speed_3', label: 'Auto Timer ≤ 320ms', earned: false, check: () => getCurrentAutoTimer() !== null && getCurrentAutoTimer() <= 320 },
+    { id: 'auto_speed_1', label: 'Auto Speed 1: Auto Timer ≤ 800ms', earned: false, check: () => getCurrentAutoTimer() !== null && getCurrentAutoTimer() <= 800 },
+    { id: 'auto_speed_2', label: 'Auto Speed 2: Auto Timer ≤ 500ms', earned: false, check: () => getCurrentAutoTimer() !== null && getCurrentAutoTimer() <= 500 },
+    { id: 'auto_speed_3', label: 'Auto Speed 3: Auto Timer ≤ 320ms', earned: false, check: () => getCurrentAutoTimer() !== null && getCurrentAutoTimer() <= 320 },
 
     // Completing Upgrades based
     { id: 'manual_maxed', label: 'Manual Multiplier Maxed', earned: false, check: () => manualMultiplierLevel >= manualMultiplierUpgrades.length },
