@@ -327,7 +327,7 @@ window.addEventListener('load', function () {
         ctx.strokeStyle = '#5c6678';
         ctx.lineWidth = 2.5;
         ctx.setLineDash([14, 10]);
-        ctx.lineDashOffset = -mt * (0.5 * 2.0);
+        ctx.lineDashOffset = -mt * (2.0);
 
         const ty1 = beltY - beltHeight * 0.2;
         const ty2 = beltY + beltHeight * 0.2;
@@ -346,7 +346,7 @@ window.addEventListener('load', function () {
         for (let i = ores.length - 1; i >= 0; i--) {
             const o = ores[i];
             o.wobble += 0.08;
-            o.x += 0.5 * o.v * 1.5;
+            o.x += o.v * 1.5;
             o.y += Math.sin(o.wobble) * 0.18;
             drawOre(o);
             if (o.x - o.s > W + 24) ores.splice(i, 1);
