@@ -83,6 +83,7 @@ body {
 
 #clicker:active {
   background: #3a404b;
+  animation: shake 120ms cubic-bezier(.25, .8, .5, 1);
 }
 
 #rightarea {
@@ -118,6 +119,27 @@ body {
 
 #upgrades button:active {
   background: #3a404b;
+  animation: shake 120ms cubic-bezier(.25, .8, .5, 1);
+}
+
+@keyframes shake {
+
+  0% {
+    transform: rotate(0deg);
+  }
+
+  30% {
+    transform: rotate(-2deg);
+  }
+
+  60% {
+    transform: rotate(2deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+
 }
 
 #achievements {
@@ -153,7 +175,7 @@ body {
 }
 
 .achievement-enter {
-  animation: achieve-enter 360ms cubic-bezier(.2,.9,.2,1) both;
+  animation: achieve-enter 360ms cubic-bezier(.2, .9, .2, 1) both;
 }
 
 @keyframes achieve-enter {
