@@ -25,12 +25,14 @@ Purpose: General layout and structure of the game
     <div id="main"> 
         <div id="leftarea">
             <div id="scoreboardarea">
-                <div id="scoreboard">0</div>
+                <div id="scoreboard">0 Ore</div>
                 <div id="manualPPC">Manual PPC: 1</div>
             </div>
 
             <div id="clickerarea">
-                <button id="clicker">Click me!</button>
+                <button id="clicker">
+                    <img src="images/pickaxe.png" alt="Pickaxe" id="pickaxeImg">
+                </button>
             </div>
 
             <div id="minescape">
@@ -41,6 +43,8 @@ Purpose: General layout and structure of the game
         <div id="rightarea">
             <div id="upgrades">
                 <button id="multiplier">Multiplier - Cost 20</button>
+                <button id="multiplierX15" class="hidden">Multiplier ×1.5 PPC Multiplier</button>
+                <button id="multiplierX3" class="hidden">Multiplier ×3 PPC Multiplier</button>
                 <button id="automaticMultiplier">Automatic Clicker - Cost 100</button>
                 <button id="automaticTimer">Auto Clicker Timer Upgrade</button>
             </div>
@@ -61,7 +65,7 @@ Purpose: General layout and structure of the game
         <h2>How to Play</h2>
         <p>Click the button to earn resources. Buy upgrades to earn faster.</p>
         <h3>Upgrades</h3>
-        <p>Multiplier: increases points per click. Automatic Clicker: auto-earns points. Timer Upgrade: makes
+        <p>Multiplier: increases points per click. 1.5 PPC Multiplier: Increases point per click times 1.5. x3 PPC Multiplier: increases point per click times 3. Automatic Clicker: auto-earns points. Timer Upgrade: makes
             auto-clicker faster.</p>
         <h3>Achievements</h3>
         <p>First Click, Click Apprentice, Click Enthusiast, Click Machine, Getting Rich, High Roller, Resource Tycoon, Resource Magnet, Upgrade Beginner, Upgrade Shopper, Upgrade Collector, Finger Training, Iron Fingers, Thunder Clicks, Typhoon Clicks, Auto Unlocked, Auto Power 1-3, Auto Speed 1-3, Manual Maxed, Auto Multiplier Maxed, Auto Timer Maxed.</p>

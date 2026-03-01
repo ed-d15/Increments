@@ -86,18 +86,17 @@ body {
 
 #clicker {
   position: relative;
-  width: min(560px, 100%);
-  min-height: 240px;
+  width: min(200px, 100%);
+  min-height: 200px;
   overflow: hidden;
   border: 1px solid #3a3f46;
   background: #343a42;
   color: #f0f0f0;
-  padding: 50px 20px 12px 20px;
+  padding: 12px;
   border-radius: 14px;
   font-weight: 800;
   cursor: pointer;
   font-size: 16px;
-  cursor: pointer;
 }
 
 #clicker:hover {
@@ -262,6 +261,14 @@ body {
 
 #automaticTimer {
   visibility: hidden;
+}
+
+#pickaxeImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
 }
 
 #footer {
